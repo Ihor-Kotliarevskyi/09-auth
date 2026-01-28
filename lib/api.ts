@@ -8,12 +8,12 @@ export interface NotesHttpResponse {
 
 const MY_KEY = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
-axios.defaults.baseURL = "https://notehub-public.goit.study/api";
+axios.defaults.baseURL = "http://localhost:3000";
 
 export const fetchNotes = async (
   searchText: string,
   page: number,
-  tag?: string
+  tag?: string,
 ): Promise<NotesHttpResponse> => {
   const options = {
     params: {
