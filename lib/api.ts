@@ -1,14 +1,28 @@
 import axios from "axios";
 import type { CreateNote, Note } from "../types/note";
+import { User } from "@/types/user";
 
 export interface NotesHttpResponse {
   notes: Note[];
   totalPages: number;
 }
 
+export type RegisterRequest = {
+  email: string;
+  password: string;
+};
+
+export type LoginRequest = {
+  email: string;
+  password: string;
+};
+
 const MY_KEY = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
-axios.defaults.baseURL = "http://localhost:3000";
+const nextServer = axios.create({
+  baseURL: "http://localhost:3000/api",
+  withCredentials: true,
+});
 
 export const fetchNotes = async (
   searchText: string,
@@ -27,7 +41,7 @@ export const fetchNotes = async (
       Authorization: `Bearer ${MY_KEY}`,
     },
   };
-  const response = await axios.get<NotesHttpResponse>("/notes", options);
+  const response = await nextServer.get<NotesHttpResponse>("/notes", options);
   return response.data;
 };
 
@@ -38,7 +52,7 @@ export const createNote = async (newNote: CreateNote): Promise<Note> => {
       Authorization: `Bearer ${MY_KEY}`,
     },
   };
-  const response = await axios.post<Note>("/notes", newNote, options);
+  const response = await nextServer.post<Note>("/notes", newNote, options);
   return response.data;
 };
 
@@ -49,7 +63,7 @@ export const deleteNote = async (id: Note["id"]): Promise<Note> => {
       Authorization: `Bearer ${MY_KEY}`,
     },
   };
-  const response = await axios.delete<Note>(`/notes/${id}`, options);
+  const response = await nextServer.delete<Note>(`/notes/${id}`, options);
   return response.data;
 };
 
@@ -60,6 +74,16 @@ export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
       Authorization: `Bearer ${MY_KEY}`,
     },
   };
-  const response = await axios.get<Note>(`/notes/${id}`, options);
+  const response = await nextServer.get<Note>(`/notes/${id}`, options);
   return response.data;
+};
+
+export const register = async (data: RegisterRequest) => {
+  const response = await nextServer.post<User>("/auth/register", data);
+  return response.data;
+};
+
+export const login = async (data: LoginRequest) => {
+  const res = await nextServer.post<User>("/auth/login", data);
+  return res.data;
 };
