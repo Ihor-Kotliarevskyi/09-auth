@@ -1,36 +1,89 @@
+"use client";
+
 import Image from "next/image";
 import css from "./EditProfilePage.module.css";
+import { useAuthStore } from "@/lib/store/authStore";
+import { useRouter } from "next/navigation";
+import { ApiError } from "@/app/api/api";
+import { useState } from "react";
+import { updateMe, updateUserRequest } from "@/lib/api";
 
 function EditProfilePage() {
+  const { email, username } = useAuthStore((state) => state.user) || {};
+  const setUser = useAuthStore((state) => state.setUser);
+
+  const router = useRouter();
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (formData: FormData) => {
+    try {
+      const formValues = Object.fromEntries(formData) as updateUserRequest;
+
+      const updatedFormValues = {
+        ...formValues,
+        email: email,
+      };
+
+      const res = await updateMe(updatedFormValues);
+      if (res) {
+        setUser(res);
+        router.push("/profile");
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (error) {
+      setError(
+        (error as ApiError).response?.data?.error ??
+          (error as ApiError).message ??
+          "Oops... some error",
+      );
+    }
+  };
+
+  const handleCancel = () => {
+    router.push("/profile");
+  };
+
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>
         <h1 className={css.formTitle}>Edit Profile</h1>
 
         <Image
-          src="avatar"
+          src="/avatar"
           alt="User Avatar"
           width={120}
           height={120}
           className={css.avatar}
         />
 
-        <form className={css.profileInfo}>
+        <form action={handleSubmit} className={css.profileInfo}>
           <div className={css.usernameWrapper}>
             <label htmlFor="username">Username:</label>
-            <input id="username" type="text" className={css.input} />
+            <input
+              defaultValue={username}
+              id="username"
+              name="username"
+              type="text"
+              className={css.input}
+            />
           </div>
-
-          <p>Email: user_email@example.com</p>
-
+          <p>
+            Email: <strong>{email}</strong>
+          </p>
           <div className={css.actions}>
             <button type="submit" className={css.saveButton}>
               Save
             </button>
-            <button type="button" className={css.cancelButton}>
+            <button
+              onClick={handleCancel}
+              type="button"
+              className={css.cancelButton}
+            >
               Cancel
             </button>
           </div>
+          {error && <p className={css.error}>{error}</p>}
         </form>
       </div>
     </main>

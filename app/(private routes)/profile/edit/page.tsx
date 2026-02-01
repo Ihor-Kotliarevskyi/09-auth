@@ -1,4 +1,4 @@
-import ProfilePage from "@/components/ProfilePage/ProfilePage";
+import EditProfilePage from "@/components/EditProfilePage/EditProfilePage";
 import { Metadata } from "next";
 
 type Props = {
@@ -6,6 +6,7 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const {} = await params;
   return {
     title: `User: `,
     description: `Profile page by user`,
@@ -25,8 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function Profile() {
-  return <ProfilePage />;
+function EditProfile() {
+  return <EditProfilePage />;
 }
 
-export default Profile;
+export default EditProfile;

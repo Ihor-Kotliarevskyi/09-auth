@@ -17,7 +17,12 @@ export type LoginRequest = {
   password: string;
 };
 
-type CheckSessionRequest = {
+export type updateUserRequest = {
+  email?: string;
+  username: string;
+};
+
+export type CheckSessionRequest = {
   success: boolean;
 };
 
@@ -89,18 +94,23 @@ export const register = async (data: RegisterRequest) => {
 };
 
 export const login = async (data: LoginRequest) => {
-  const res = await nextServer.post<User>("/auth/login", data);
-  return res.data;
+  const response = await nextServer.post<User>("/auth/login", data);
+  return response.data;
 };
 
 export const checkSession = async () => {
-  const res = await nextServer.get<CheckSessionRequest>("/auth/session");
-  return res.data.success;
+  const response = await nextServer.get<CheckSessionRequest>("/auth/session");
+  return response.data.success;
 };
 
 export const getMe = async () => {
-  const { data } = await nextServer.get<User>("/auth/me");
-  return data;
+  const response = await nextServer.get<User>("/users/me");
+  return response.data;
+};
+
+export const updateMe = async (data: updateUserRequest) => {
+  const response = await nextServer.patch<User>("/users/me", data);
+  return response.data;
 };
 
 export const logout = async (): Promise<void> => {
