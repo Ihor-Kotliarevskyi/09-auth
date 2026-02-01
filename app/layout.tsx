@@ -4,6 +4,7 @@ import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -21,13 +22,13 @@ export const metadata: Metadata = {
     url: "https://08-zustand-seven-amber.vercel.app",
     images: [
       {
-      url: "https://chatgpt.com/s/m_6971b723ea4c8191a1496962fa999a34",
-      width: 1200,
-      height: 630,
-      alt: "Poster with logo",
-    },
-  ],
-  }
+        url: "https://chatgpt.com/s/m_6971b723ea4c8191a1496962fa999a34",
+        width: 1200,
+        height: 630,
+        alt: "Poster with logo",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -37,16 +38,20 @@ export default function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }>) {
-  return (<html lang='en'>
+  return (
+    <html lang="en">
       <body className={`${roboto.variable}`}>
         <TanStackProvider>
-          <Header />
-          <main>
-            {children}
-            {modal}
-          </main>
-          <Footer />
+          <AuthProvider>
+            <Header />
+            <main>
+              {children}
+              {modal}
+            </main>
+            <Footer />
+          </AuthProvider>
         </TanStackProvider>
       </body>
-    </html>);
+    </html>
+  );
 }
