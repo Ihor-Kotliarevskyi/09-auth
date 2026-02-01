@@ -1,6 +1,13 @@
-import axios from "axios";
-import type { CreateNote, Note } from "../types/note";
+"use client";
+
+import type { CreateNote, Note } from "../../types/note";
 import { User } from "@/types/user";
+import axios from "axios";
+
+const nextServer = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
+  withCredentials: true,
+});
 
 export interface NotesHttpResponse {
   notes: Note[];
@@ -26,14 +33,6 @@ export type CheckSessionRequest = {
   success: boolean;
 };
 
-const MY_KEY = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
-const baseURL = process.env.NEXT_PUBLIC_API_URL + "/api";
-
-const nextServer = axios.create({
-  baseURL,
-  withCredentials: true,
-});
-
 export const fetchNotes = async (
   searchText: string,
   page: number,
@@ -48,7 +47,6 @@ export const fetchNotes = async (
     },
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${MY_KEY}`,
     },
   };
   const response = await nextServer.get<NotesHttpResponse>("/notes", options);
@@ -59,7 +57,6 @@ export const createNote = async (newNote: CreateNote): Promise<Note> => {
   const options = {
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${MY_KEY}`,
     },
   };
   const response = await nextServer.post<Note>("/notes", newNote, options);
@@ -70,7 +67,6 @@ export const deleteNote = async (id: Note["id"]): Promise<Note> => {
   const options = {
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${MY_KEY}`,
     },
   };
   const response = await nextServer.delete<Note>(`/notes/${id}`, options);
@@ -81,7 +77,6 @@ export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
   const options = {
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${MY_KEY}`,
     },
   };
   const response = await nextServer.get<Note>(`/notes/${id}`, options);

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useAuthStore } from "@/lib/store/authStore";
 
 function ProfilePage() {
-  const { email, username } = useAuthStore((state) => state.user) || {};
+  const { email, username, avatar } = useAuthStore((state) => state.user) || {};
 
   return (
     <main className={css.mainContent}>
@@ -19,7 +19,7 @@ function ProfilePage() {
         </div>
         <div className={css.avatarWrapper}>
           <Image
-            src="/Avatar"
+            src={avatar || "/file.svg"}
             alt="User Avatar"
             width={120}
             height={120}

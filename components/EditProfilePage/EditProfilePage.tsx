@@ -6,12 +6,12 @@ import { useAuthStore } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
 import { ApiError } from "@/app/api/api";
 import { useState } from "react";
-import { updateMe, updateUserRequest } from "@/lib/api";
+import toast from "react-hot-toast";
+import { updateMe, updateUserRequest } from "@/lib/api/clientApi";
 
 function EditProfilePage() {
-  const { email, username } = useAuthStore((state) => state.user) || {};
+  const { email, username, avatar } = useAuthStore((state) => state.user) || {};
   const setUser = useAuthStore((state) => state.setUser);
-
   const router = useRouter();
   const [error, setError] = useState("");
 
@@ -28,14 +28,14 @@ function EditProfilePage() {
       if (res) {
         setUser(res);
         router.push("/profile");
-      } else {
-        setError("Invalid email or password");
       }
     } catch (error) {
       setError(
-        (error as ApiError).response?.data?.error ??
-          (error as ApiError).message ??
-          "Oops... some error",
+        toast.error(
+          (error as ApiError).response?.data?.error ??
+            (error as ApiError).message ??
+            "Oops... some error",
+        ),
       );
     }
   };
@@ -50,7 +50,7 @@ function EditProfilePage() {
         <h1 className={css.formTitle}>Edit Profile</h1>
 
         <Image
-          src="/avatar"
+          src={avatar || "/file.svg"}
           alt="User Avatar"
           width={120}
           height={120}

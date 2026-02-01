@@ -5,10 +5,10 @@ import { useId } from "react";
 import type { CreateNote } from "../../types/note";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { createNote } from "@/lib/api";
 import { TAGS } from "@/constants/tags";
 import { useRouter } from "next/navigation";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
+import { createNote } from "@/lib/api/clientApi";
 
 function NoteForm() {
   const fieldId = useId();

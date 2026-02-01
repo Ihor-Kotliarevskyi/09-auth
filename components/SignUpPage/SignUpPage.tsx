@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import css from "./SignUpPage.module.css";
 import { useState } from "react";
 import { ApiError } from "@/app/api/api";
-import { register, RegisterRequest } from "@/lib/api";
 import { useAuthStore } from "@/lib/store/authStore";
+import { register, RegisterRequest } from "@/lib/api/clientApi";
 
 function SignUpPage() {
   const router = useRouter();

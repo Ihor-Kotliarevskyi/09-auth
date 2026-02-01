@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import css from "./LayoutRegister.module.css";
 
 type Props = {
@@ -5,10 +9,26 @@ type Props = {
 };
 
 function LayoutRegister({ children }: Props) {
+  const [loading, setLoading] = useState(true);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLoading(false);
+  }, [router]);
+
   return (
-    <section className={css.container}>
-      <div className={css.registerWrapper}>{children}</div>
-    </section>
+    <>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <section className={css.container}>
+          <div className={css.registerWrapper}>{children}</div>
+        </section>
+      )}
+    </>
   );
 }
 

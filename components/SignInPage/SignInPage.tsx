@@ -4,8 +4,8 @@ import { ApiError } from "@/app/api/api";
 import css from "./SignInPage.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { login, LoginRequest } from "@/lib/api";
 import { useAuthStore } from "@/lib/store/authStore";
+import { login, LoginRequest } from "@/lib/api/clientApi";
 
 function SignInPage() {
   const router = useRouter();
