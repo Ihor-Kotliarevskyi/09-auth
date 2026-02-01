@@ -22,9 +22,10 @@ type CheckSessionRequest = {
 };
 
 const MY_KEY = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
+const baseURL = process.env.NEXT_PUBLIC_API_URL + "/api";
 
 const nextServer = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL,
   withCredentials: true,
 });
 
