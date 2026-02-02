@@ -2,12 +2,7 @@
 
 import type { CreateNote, Note } from "../../types/note";
 import { User } from "@/types/user";
-import axios from "axios";
-
-const nextServer = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL + "/api",
-  withCredentials: true,
-});
+import { nextServer } from "./api";
 
 export interface NotesHttpResponse {
   notes: Note[];
