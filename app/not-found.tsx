@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Memo",
     description: "Welcome to Memo - web app for creating notes",
-    url: "https://08-zustand-seven-amber.vercel.app",
+    url: "https://09-auth-six-gamma.vercel.app",
     images: [
       {
         url: "https://chatgpt.com/s/m_6971b723ea4c8191a1496962fa999a34",

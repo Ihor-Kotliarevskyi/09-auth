@@ -1,12 +1,32 @@
-"use client";
-
+import { getMe } from "@/lib/api/serverApi";
 import css from "./ProfilePage.module.css";
-import { useAuthStore } from "@/lib/store/authStore";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 
-function Profile() {
-  const { email, username, avatar } = useAuthStore((state) => state.user) || {};
+export async function generateMetadata(): Promise<Metadata> {
+  const { email, username, avatar } = await getMe();
+  return {
+    title: `Profile: ${username}`,
+    description: `Email: ${email}`,
+    openGraph: {
+      title: `Profile: ${username}`,
+      description: `Email: ${email}`,
+      url: `https://09-auth-six-gamma.vercel.app/profile`,
+      images: [
+        {
+          url: `${avatar}`,
+          width: 1200,
+          height: 630,
+          alt: "Poster with logo",
+        },
+      ],
+    },
+  };
+}
+
+async function Profile() {
+  const { email, username, avatar } = await getMe();
 
   return (
     <main className={css.mainContent}>
