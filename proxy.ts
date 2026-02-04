@@ -3,8 +3,8 @@ import { cookies } from "next/headers";
 import { parse } from "cookie";
 import { checkSession } from "./lib/api/serverApi";
 
-const privateRoutes = ["/profile", "/notes/filter/all"];
-const publicRoutes = ["/sign-in", "/sign-up"];
+const privateRoutes = ["/profile", "/notes"];
+const authRoutes = ["/sign-in", "/sign-up"];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -12,9 +12,7 @@ export async function proxy(request: NextRequest) {
   const accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
 
-  const isPublicRoute = publicRoutes.some((route) =>
-    pathname.startsWith(route),
-  );
+  const isPublicRoute = authRoutes.some((route) => pathname.startsWith(route));
   const isPrivateRoute = privateRoutes.some((route) =>
     pathname.startsWith(route),
   );
@@ -72,5 +70,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile/:path*", "/sign-in", "/sign-up"],
+  matcher: ["/profile/:path*", "/notes/:path*", "/sign-in", "/sign-up"],
 };
