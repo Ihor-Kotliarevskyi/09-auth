@@ -35,10 +35,10 @@ export const fetchNotes = async (
   return response.data;
 };
 
-export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
+export const fetchNoteById = async (_id: Note["_id"]): Promise<Note> => {
   const cookieStore = await cookies();
 
-  const response = await nextServer.get<Note>(`/notes/${id}`, {
+  const response = await nextServer.get<Note>(`/notes/${_id}`, {
     headers: {
       accept: "application/json",
       Cookie: cookieStore.toString(),

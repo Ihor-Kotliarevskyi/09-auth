@@ -58,23 +58,23 @@ export const createNote = async (newNote: CreateNote): Promise<Note> => {
   return response.data;
 };
 
-export const deleteNote = async (id: Note["id"]): Promise<Note> => {
+export const deleteNote = async (_id: Note["_id"]): Promise<Note> => {
   const options = {
     headers: {
       accept: "application/json",
     },
   };
-  const response = await nextServer.delete<Note>(`/notes/${id}`, options);
+  const response = await nextServer.delete<Note>(`/notes/${_id}`, options);
   return response.data;
 };
 
-export const fetchNoteById = async (id: Note["id"]): Promise<Note> => {
+export const fetchNoteById = async (_id: Note["_id"]): Promise<Note> => {
   const options = {
     headers: {
       accept: "application/json",
     },
   };
-  const response = await nextServer.get<Note>(`/notes/${id}`, options);
+  const response = await nextServer.get<Note>(`/notes/${_id}`, options);
   return response.data;
 };
 
