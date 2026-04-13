@@ -1,8 +1,8 @@
-# 📝 MEMO — Notes Web Application
+# 📝 MEMO - Notes Web Application
 
 A full-featured notes management web app built with Next.js 15 and React 19. Connects to a custom [REST API backend](https://github.com/Ihor-Kotliarevskyi/nodejs-hw) for data persistence and authentication.
 
-🌐 **Live Demo:** [09-auth-six-gamma.vercel.app](https://09-auth-six-gamma.vercel.app)
+🌐 **Live Demo:** [https://memo-note-hub.vercel.app](https://memo-note-hub.vercel.app)
 
 [![Next.js](https://img.shields.io/badge/Next.js-15-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react&logoColor=black)](https://react.dev/)
@@ -15,17 +15,17 @@ A full-featured notes management web app built with Next.js 15 and React 19. Con
 
 ## ✨ Features
 
-- 🔐 **Authentication** — Sign up, sign in, sign out with JWT stored in HTTP-only cookies
-- 🔄 **Token Auto-Refresh** — Next.js middleware silently renews expired access tokens via refresh token
-- 🛡️ **Route Protection** — Private routes redirect unauthenticated users; auth routes redirect logged-in users
-- 📋 **Notes CRUD** — Create, view, update, and delete personal notes
-- 🏷️ **Tag Filtering** — Filter notes by category using a dynamic sidebar
-- 🔍 **Debounced Search** — Full-text search with debounce to reduce unnecessary API calls
-- 📄 **Pagination** — Navigate through notes pages with `react-paginate`
-- 🖼️ **Intercepting Routes + Modal** — Note preview opens in a modal when navigating from the list, or as a full page on direct URL access (Next.js parallel + intercepting routes)
-- 💾 **Draft Persistence** — Note draft is saved to `localStorage` via Zustand `persist` middleware — survives page refresh
-- 👤 **Profile Management** — View and edit user profile (username, avatar)
-- 🔔 **Toast Notifications** — User feedback on all async actions via `react-hot-toast`
+- 🔐 **Authentication** - Sign up, sign in, sign out with JWT stored in HTTP-only cookies
+- 🔄 **Token Auto-Refresh** - Next.js middleware silently renews expired access tokens via refresh token
+- 🛡️ **Route Protection** - Private routes redirect unauthenticated users; auth routes redirect logged-in users
+- 📋 **Notes CRUD** - Create, view, update, and delete personal notes
+- 🏷️ **Tag Filtering** - Filter notes by category using a dynamic sidebar
+- 🔍 **Debounced Search** - Full-text search with debounce to reduce unnecessary API calls
+- 📄 **Pagination** - Navigate through notes pages with `react-paginate`
+- 🖼️ **Intercepting Routes + Modal** - Note preview opens in a modal when navigating from the list, or as a full page on direct URL access (Next.js parallel + intercepting routes)
+- 💾 **Draft Persistence** - Note draft is saved to `localStorage` via Zustand `persist` middleware — survives page refresh
+- 👤 **Profile Management** - View and edit user profile (username, avatar)
+- 🔔 **Toast Notifications** - User feedback on all async actions via `react-hot-toast`
 
 ---
 
